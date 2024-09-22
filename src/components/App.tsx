@@ -57,6 +57,10 @@ export default function App() {
         {activities.map((activity) => {
           return (
             <Activity
+              key={activity.name}
+              effectOnGratitude={activity.effects.gratitude}
+              effectOnHydration={activity.effects.hydration}
+              effectOnSanity={activity.effects.sanity}
               difficulty={activity.difficulty}
               disabled={selected == undefined || activity.status !== 'todo'}
               name={activity.name}
