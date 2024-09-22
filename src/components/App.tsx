@@ -78,7 +78,10 @@ export default function App() {
                   active && 'ring-2',
                 )}
                 disabled={val < 0}
-                onClick={() => setSelected(i)}
+                onClick={() =>
+                  // Set or unset this die as selected.
+                  setSelected((prev) => (prev === i ? undefined : i))
+                }
               >
                 {Math.abs(val)}
               </button>
