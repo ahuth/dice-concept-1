@@ -97,7 +97,7 @@ function doActivity(
   }
 
   const rolled = random(1, die);
-  const success = rolled >= activity.difficulty;
+  const success = rolled >= random(1, activity.difficulty);
 
   return {
     gratitude: state.gratitude + (success ? activity.effects.gratitude : -15),
