@@ -1,53 +1,43 @@
+import type {Activity as ActivityType} from '../store';
 import Button from './Button';
 
 type Props = {
-  effectOnGratitude: number;
-  effectOnHydration: number;
-  effectOnSanity: number;
-  difficulty: number;
+  activity: ActivityType;
   disabled?: boolean;
-  name: string;
   onClick: () => void;
-  status: 'todo' | 'success' | 'failure';
 };
 
-export default function Activity({
-  effectOnGratitude,
-  effectOnHydration,
-  effectOnSanity,
-  difficulty,
-  disabled,
-  name,
-  onClick,
-  status,
-}: Props) {
+export default function Activity({activity, disabled, onClick}: Props) {
   return (
     <div className="flex items-center gap-2 pl-6">
       <div className="flex w-32 items-center gap-2">
         <div className="flex flex-col gap-0.5">
-          <span>{name}</span>
+          <span>{activity.name}</span>
           <span className="italic text-gray-500">
-            <span title={`Gratitude: ${effectOnGratitude}`}>
-              {effectOnGratitude}
+            <span title={`Gratitude: ${activity.effects.gratitude}`}>
+              {activity.effects.gratitude}
             </span>{' '}
             /{' '}
-            <span title={`Hydration: ${effectOnHydration}`}>
-              {effectOnHydration}
+            <span title={`Hydration: ${activity.effects.hydration}`}>
+              {activity.effects.hydration}
             </span>{' '}
-            / <span title={`Sanity: ${effectOnSanity}`}>{effectOnSanity}</span>
+            /{' '}
+            <span title={`Sanity: ${activity.effects.sanity}`}>
+              {activity.effects.sanity}
+            </span>
           </span>
         </div>
       </div>
       <div className="h-10 w-10 rounded bg-gray-200 p-2 text-center text-gray-800">
-        {difficulty}
+        {activity.difficulty}
       </div>
       <Button disabled={disabled} onClick={onClick}>
         Do it
       </Button>
       <div className="w-6">
-        {status === 'success' ?
+        {activity.status === 'success' ?
           '✅'
-        : status === 'failure' ?
+        : activity.status === 'failure' ?
           '❌'
         : ''}
       </div>

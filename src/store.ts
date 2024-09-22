@@ -14,7 +14,7 @@ type State = {
   };
 };
 
-type Activity = {
+export type Activity = {
   name: string;
   difficulty: number;
   status: 'todo' | 'success' | 'failure';
