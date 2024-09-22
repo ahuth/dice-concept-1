@@ -3,9 +3,10 @@ import {create} from 'zustand';
 
 type State = {
   day: number;
-  dice: Array<number | null>;
+  dice: Array<number>;
   actions: {
-    incrementDay: () => void;
+    nextDay: () => void;
+    pickDie: (index: number) => void;
   };
 };
 
@@ -14,7 +15,7 @@ const useStore = create<State>((set) => {
     day: 0,
     dice: [],
     actions: {
-      incrementDay: () =>
+      nextDay() {
         set((state) => ({
           day: state.day + 1,
           dice: [
@@ -24,7 +25,26 @@ const useStore = create<State>((set) => {
             random(1, 6),
             random(1, 6),
           ],
-        })),
+        }));
+      },
+      pickDie(index) {
+        set((state) => {
+          if (!state.dice[index]) {
+            return {};
+          }
+
+          if (state.dice[index] < 0) {
+            return {};
+          }
+
+          const nextDice = state.dice.slice();
+          nextDice[index] = nextDice[index] * -1;
+
+          return {
+            dice: nextDice,
+          };
+        });
+      },
     },
   };
 });
