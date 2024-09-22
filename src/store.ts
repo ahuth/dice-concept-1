@@ -15,7 +15,7 @@ const useStore = create<State>((set) => {
     day: 0,
     dice: [],
     actions: {
-      nextDay() {
+      nextDay: () => {
         set((state) => {
           return {
             day: state.day + 1,
@@ -29,7 +29,7 @@ const useStore = create<State>((set) => {
           };
         });
       },
-      pickDie(index) {
+      pickDie: (index) => {
         set((state) => {
           if (!state.dice[index]) {
             return {};
