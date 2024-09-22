@@ -21,7 +21,7 @@ export default function Activity({
 }: Props) {
   return (
     <div className="flex items-center gap-2">
-      <div className="flex w-44 items-center gap-2">
+      <div className="flex w-32 items-center gap-2">
         <div className="flex flex-col gap-0.5">
           <span>{name}</span>
           <span className="italic text-gray-500">
@@ -35,9 +35,9 @@ export default function Activity({
             / <span title={`Sanity: ${effectOnSanity}`}>{effectOnSanity}</span>
           </span>
         </div>
-        <div className="h-10 w-10 rounded bg-gray-200 p-2 text-center text-gray-800">
-          {difficulty}
-        </div>
+      </div>
+      <div className="h-10 w-10 rounded bg-gray-200 p-2 text-center text-gray-800">
+        {difficulty}
       </div>
       <Button disabled={disabled} onClick={onClick}>
         Do it
