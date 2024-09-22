@@ -40,6 +40,9 @@ const useStore = create<State>((set) => {
             activities: generateActivities(),
             day: state.day + 1,
             dice: generateDice(),
+            gratitude: state.gratitude - 15,
+            hydration: state.hydration - 15,
+            sanity: state.sanity - 15,
           };
         });
       },

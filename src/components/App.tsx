@@ -32,7 +32,7 @@ export default function App() {
       <p className="max-w-prose">
         Maintain your gratitude, hydration, and sanity by selecting dice and
         applying them to various activities. Every day you'll get a new set of
-        dice.
+        dice, as well as lose some from each category.
       </p>
       <Meter name="Gratitude" value={gratitude} />
       <Meter name="Hydration" value={hydration} />
