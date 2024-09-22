@@ -24,7 +24,7 @@ export default function App() {
   const hydration = useHydration();
   const sanity = useSanity();
 
-  const dayIsDone = activities.every((activity) => activity.completed);
+  const dayIsDone = activities.every((activity) => activity.status !== 'todo');
 
   return (
     <div className="flex flex-col items-center gap-4 p-8">
@@ -57,7 +57,7 @@ export default function App() {
         {activities.map((activity) => {
           return (
             <Activity
-              disabled={selected == undefined || activity.completed}
+              disabled={selected == undefined || activity.status !== 'todo'}
               name={activity.name}
               onClick={() => {
                 setSelected(undefined);

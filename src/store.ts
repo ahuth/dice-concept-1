@@ -17,8 +17,7 @@ type State = {
 type Activity = {
   name: string;
   difficulty: number;
-  completed: boolean;
-  success: boolean;
+  status: 'todo' | 'success' | 'failure';
   effects: {
     gratitude: number;
     hydration: number;
@@ -90,7 +89,7 @@ function doActivity(
   const die = state.dice[dieIndex];
 
   // Activity doesn't exist or is already completed.
-  if (!activity || activity.completed) {
+  if (!activity || activity.status !== 'todo') {
     return {};
   }
 
@@ -105,8 +104,7 @@ function doActivity(
       if (activity.name === name) {
         return {
           ...activity,
-          completed: true,
-          success,
+          status: success ? 'success' : 'failure',
         };
       }
       return activity;
@@ -118,8 +116,7 @@ function generateActivities(): Activity[] {
   return [
     {
       name: 'Feed cats',
-      completed: false,
-      success: false,
+      status: 'todo',
       difficulty: random(1, 4),
       effects: {
         gratitude: random(5, 15),
@@ -129,8 +126,7 @@ function generateActivities(): Activity[] {
     },
     {
       name: 'Change diaper',
-      completed: false,
-      success: false,
+      status: 'todo',
       difficulty: random(3, 6),
       effects: {
         gratitude: random(-15, -5),
@@ -140,8 +136,7 @@ function generateActivities(): Activity[] {
     },
     {
       name: 'Turn on TV',
-      completed: false,
-      success: false,
+      status: 'todo',
       difficulty: random(1, 3),
       effects: {
         gratitude: random(5, 15),
@@ -151,8 +146,7 @@ function generateActivities(): Activity[] {
     },
     {
       name: 'Mow grass',
-      completed: false,
-      success: false,
+      status: 'todo',
       difficulty: random(3, 5),
       effects: {
         gratitude: random(-15, -5),
@@ -162,8 +156,7 @@ function generateActivities(): Activity[] {
     },
     {
       name: 'Drink Topochico',
-      completed: false,
-      success: false,
+      status: 'todo',
       difficulty: random(1, 3),
       effects: {
         gratitude: random(5, 15),
