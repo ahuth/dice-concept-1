@@ -29,6 +29,11 @@ export default function App() {
   return (
     <div className="flex flex-col items-center gap-4 p-8">
       <span>Day: {day}</span>
+      <p className="max-w-prose">
+        Maintain your gratitude, hydration, and sanity by selecting dice and
+        applying them to various activities. Every day you'll get a new set of
+        dice.
+      </p>
       <Meter name="Gratitude" value={gratitude} />
       <Meter name="Hydration" value={hydration} />
       <Meter name="Sanity" value={sanity} />
