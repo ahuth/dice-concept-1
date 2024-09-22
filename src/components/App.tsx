@@ -35,9 +35,14 @@ export default function App() {
     <div className="flex flex-col items-center gap-4 p-8">
       <span>Day: {day}</span>
       <p className="max-w-prose">
-        Maintain your gratitude, hydration, and sanity by selecting dice and
-        applying them to various activities. Every day you'll get a new set of
-        dice, as well as lose some from each category.
+        Maintain your gratitude, hydration, and sanity. Roll a die against
+        another one assigned to an activity of your choice. If your die is
+        higher, you're successful at it (your mother would be so proud).
+      </p>
+      <p className="max-w-prose">
+        When there are no more activities to do, the day ends. You'll lose 15
+        points off each category. Then the next day begins and you get a fresh
+        set of dice. Good luck!
       </p>
       <Meter name="Gratitude" value={gratitude} />
       <Meter name="Hydration" value={hydration} />
