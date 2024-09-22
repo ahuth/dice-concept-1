@@ -34,9 +34,9 @@ const useStore = create<State>((set) => {
   };
 });
 
+export const useActions = () => useStore((state) => state.actions);
 export const useDay = () => useStore((state) => state.day);
 export const useDice = () => useStore((state) => state.dice);
-export const useActions = () => useStore((state) => state.actions);
 
 function generateDice() {
   return [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)];
