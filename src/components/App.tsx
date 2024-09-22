@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import {useState} from 'react';
 import {
   useActions,
@@ -9,6 +8,7 @@ import {
   useHydration,
   useSanity,
 } from '../store';
+import Die from './Die';
 import Meter from './Meter';
 
 export default function App() {
@@ -32,23 +32,16 @@ export default function App() {
       <Meter name="Sanity" value={sanity} />
       <ul className="flex justify-center gap-2">
         {dice.map((val, i) => {
-          const active = i === selected;
           return (
             <li key={i}>
-              <button
-                aria-current={active ? true : undefined}
-                className={clsx(
-                  'rounded bg-gray-200 px-4 py-2 text-gray-800 hover:bg-gray-300 active:bg-gray-400 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400',
-                  active && 'ring-2',
-                )}
-                disabled={val < 0}
+              <Die
+                active={i === selected}
                 onClick={() =>
                   // Set or unset this die as selected.
                   setSelected((prev) => (prev === i ? undefined : i))
                 }
-              >
-                {Math.abs(val)}
-              </button>
+                value={val}
+              />
             </li>
           );
         })}
