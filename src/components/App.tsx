@@ -83,6 +83,7 @@ export default function App() {
                   },
                 });
               }}
+              status={activity.status}
             />
           );
         })}

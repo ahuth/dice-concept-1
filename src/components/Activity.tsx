@@ -8,6 +8,7 @@ type Props = {
   disabled?: boolean;
   name: string;
   onClick: () => void;
+  status: 'todo' | 'success' | 'failure';
 };
 
 export default function Activity({
@@ -18,9 +19,10 @@ export default function Activity({
   disabled,
   name,
   onClick,
+  status,
 }: Props) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 pl-6">
       <div className="flex w-32 items-center gap-2">
         <div className="flex flex-col gap-0.5">
           <span>{name}</span>
@@ -42,6 +44,13 @@ export default function Activity({
       <Button disabled={disabled} onClick={onClick}>
         Do it
       </Button>
+      <div className="w-6">
+        {status === 'success' ?
+          '✅'
+        : status === 'failure' ?
+          '❌'
+        : ''}
+      </div>
     </div>
   );
 }
