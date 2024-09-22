@@ -9,6 +9,7 @@ import {
   useSanity,
 } from '../store';
 import Activity from './Activity';
+import Button from './Button';
 import Die from './Die';
 import Meter from './Meter';
 
@@ -61,13 +62,9 @@ export default function App() {
           );
         })}
       </ul>
-      <button
-        className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 active:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-50"
-        disabled={!dayIsDone}
-        onClick={actions.nextDay}
-      >
+      <Button disabled={!dayIsDone} onClick={actions.nextDay}>
         Next day
-      </button>
+      </Button>
     </div>
   );
 }
