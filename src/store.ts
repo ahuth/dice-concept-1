@@ -16,16 +16,18 @@ const useStore = create<State>((set) => {
     dice: [],
     actions: {
       nextDay() {
-        set((state) => ({
-          day: state.day + 1,
-          dice: [
-            random(1, 6),
-            random(1, 6),
-            random(1, 6),
-            random(1, 6),
-            random(1, 6),
-          ],
-        }));
+        set((state) => {
+          return {
+            day: state.day + 1,
+            dice: [
+              random(1, 6),
+              random(1, 6),
+              random(1, 6),
+              random(1, 6),
+              random(1, 6),
+            ],
+          };
+        });
       },
       pickDie(index) {
         set((state) => {
