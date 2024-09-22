@@ -8,6 +8,7 @@ import {
   useHydration,
   useSanity,
 } from '../store';
+import Activity from './Activity';
 import Die from './Die';
 import Meter from './Meter';
 
@@ -49,19 +50,14 @@ export default function App() {
       <ul className="flex flex-col gap-2">
         {activities.map((activity) => {
           return (
-            <li className="flex items-center gap-2" key={activity.name}>
-              <span className="w-32">{activity.name}</span>
-              <button
-                className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 active:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-50"
-                disabled={selected == undefined || activity.completed}
-                onClick={() => {
-                  setSelected(undefined);
-                  actions.takeAction(activity.name, selected ?? -1);
-                }}
-              >
-                Do it
-              </button>
-            </li>
+            <Activity
+              disabled={selected == undefined || activity.completed}
+              name={activity.name}
+              onClick={() => {
+                setSelected(undefined);
+                actions.takeAction(activity.name, selected ?? -1);
+              }}
+            />
           );
         })}
       </ul>
