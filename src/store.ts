@@ -120,7 +120,7 @@ function generateActivities(): Activity[] {
       difficulty: random(1, 4),
       effects: {
         gratitude: random(5, 15),
-        hydration: random(-15, -5),
+        hydration: 0,
         sanity: random(5, 15),
       },
     },
@@ -129,19 +129,19 @@ function generateActivities(): Activity[] {
       status: 'todo',
       difficulty: random(3, 6),
       effects: {
-        gratitude: random(-15, -5),
-        hydration: random(-15, -5),
+        gratitude: 0,
+        hydration: 0,
         sanity: random(5, 15),
       },
     },
     {
-      name: 'Turn on TV',
+      name: 'Read a book',
       status: 'todo',
       difficulty: random(1, 3),
       effects: {
         gratitude: random(5, 15),
-        hydration: random(-15, -5),
-        sanity: random(-15, 5),
+        hydration: 0,
+        sanity: random(5, 15),
       },
     },
     {
@@ -149,9 +149,9 @@ function generateActivities(): Activity[] {
       status: 'todo',
       difficulty: random(3, 5),
       effects: {
-        gratitude: random(-15, -5),
-        hydration: random(-15, -5),
-        sanity: random(-15, 5),
+        gratitude: 0,
+        hydration: 0,
+        sanity: random(5, 15),
       },
     },
     {
