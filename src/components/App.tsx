@@ -21,6 +21,8 @@ export default function App() {
   const hydration = useHydration();
   const sanity = useSanity();
 
+  const dayIsDone = activities.every((activity) => activity.completed);
+
   return (
     <div className="flex flex-col items-center gap-4 p-8">
       <span>Day: {day}</span>
@@ -110,7 +112,7 @@ export default function App() {
       </ul>
       <button
         className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 active:bg-blue-900 disabled:cursor-not-allowed disabled:opacity-50"
-        disabled
+        disabled={!dayIsDone}
         onClick={actions.nextDay}
       >
         Next day
