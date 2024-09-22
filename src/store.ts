@@ -4,6 +4,9 @@ import {create} from 'zustand';
 type State = {
   day: number;
   dice: number[];
+  gratitude: number;
+  hydration: number;
+  sanity: number;
   actions: {
     nextDay: () => void;
     pickDie: (index: number) => void;
@@ -13,7 +16,10 @@ type State = {
 const useStore = create<State>((set) => {
   return {
     day: 0,
-    dice: [],
+    dice: generateDice(),
+    gratitude: 75,
+    hydration: 75,
+    sanity: 75,
     actions: {
       nextDay: () => {
         set((state) => {
@@ -37,6 +43,9 @@ const useStore = create<State>((set) => {
 export const useActions = () => useStore((state) => state.actions);
 export const useDay = () => useStore((state) => state.day);
 export const useDice = () => useStore((state) => state.dice);
+export const useGraditude = () => useStore((state) => state.gratitude);
+export const useHydration = () => useStore((state) => state.hydration);
+export const useSanity = () => useStore((state) => state.sanity);
 
 function generateDice() {
   return [random(1, 6), random(1, 6), random(1, 6), random(1, 6), random(1, 6)];
