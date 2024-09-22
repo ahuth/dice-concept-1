@@ -13,6 +13,7 @@
     "validate": "npm run lint && npm run types"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.4",
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
     "react": "^18.2.0",

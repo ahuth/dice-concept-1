@@ -1,3 +1,4 @@
+import {animated, useSpring} from '@react-spring/web';
 import {useState} from 'react';
 import {
   useActions,
@@ -26,6 +27,10 @@ export default function App() {
 
   const dayIsDone = activities.every((activity) => activity.status !== 'todo');
 
+  const [springs, animateApi] = useSpring(() => ({
+    from: {rotate: 0},
+  }));
+
   return (
     <div className="flex flex-col items-center gap-4 p-8">
       <span>Day: {day}</span>
@@ -40,7 +45,7 @@ export default function App() {
       <ul className="flex justify-center gap-2">
         {dice.map((val, i) => {
           return (
-            <li key={i}>
+            <animated.li key={i} style={i === selected ? springs : undefined}>
               <Die
                 active={i === selected}
                 onClick={() =>
@@ -49,7 +54,7 @@ export default function App() {
                 }
                 value={val}
               />
-            </li>
+            </animated.li>
           );
         })}
       </ul>
@@ -65,8 +70,18 @@ export default function App() {
               disabled={selected == undefined || activity.status !== 'todo'}
               name={activity.name}
               onClick={() => {
-                setSelected(undefined);
-                actions.takeAction(activity.name, selected ?? -1);
+                animateApi.start({
+                  from: {
+                    rotate: 0,
+                  },
+                  to: {
+                    rotate: 360,
+                  },
+                  onRest: () => {
+                    setSelected(undefined);
+                    actions.takeAction(activity.name, selected ?? -1);
+                  },
+                });
               }}
             />
           );
