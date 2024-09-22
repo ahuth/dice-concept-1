@@ -57,6 +57,7 @@ export default function App() {
         {activities.map((activity) => {
           return (
             <Activity
+              difficulty={activity.difficulty}
               disabled={selected == undefined || activity.status !== 'todo'}
               name={activity.name}
               onClick={() => {
