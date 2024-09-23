@@ -29,8 +29,6 @@ export default function App() {
     from: {rotate: 0},
   }));
 
-  const dayIsDone = activities.every((activity) => activity.status !== 'todo');
-
   return (
     <div className="flex flex-col items-center gap-4 p-8">
       <span>Day: {day}</span>
@@ -88,7 +86,10 @@ export default function App() {
           );
         })}
       </ul>
-      <Button disabled={!dayIsDone} onClick={actions.nextDay}>
+      <Button
+        disabled={activities.some((activity) => activity.status === 'todo')}
+        onClick={actions.nextDay}
+      >
         Next day
       </Button>
     </div>
