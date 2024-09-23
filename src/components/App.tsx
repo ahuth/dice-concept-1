@@ -1,24 +1,22 @@
-import {animated, useSpring} from '@react-spring/web';
+import {useSpring} from '@react-spring/web';
 import {useState} from 'react';
 import {
   useActions,
   useActivities,
   useDay,
-  useDice,
   useGraditude,
   useHydration,
   useSanity,
 } from '../store';
 import Activity from './Activity';
 import Button from './Button';
-import Die from './Die';
+import Dice from './Dice';
 import Meter from './Meter';
 
 export default function App() {
   const actions = useActions();
   const activities = useActivities();
   const day = useDay();
-  const dice = useDice();
   const gratitude = useGraditude();
   const hydration = useHydration();
   const sanity = useSanity();
@@ -45,22 +43,14 @@ export default function App() {
       <Meter name="Gratitude" value={gratitude} />
       <Meter name="Hydration" value={hydration} />
       <Meter name="Sanity" value={sanity} />
-      <ul className="flex justify-center gap-2">
-        {dice.map((val, i) => {
-          return (
-            <animated.li key={i} style={i === selected ? springs : undefined}>
-              <Die
-                active={i === selected}
-                onClick={() =>
-                  // Set or unset this die as selected.
-                  setSelected((prev) => (prev === i ? undefined : i))
-                }
-                value={val}
-              />
-            </animated.li>
-          );
-        })}
-      </ul>
+      <Dice
+        onSelect={(i) => {
+          // Set or unset this die as selected.
+          setSelected((prev) => (prev === i ? undefined : i));
+        }}
+        selected={selected}
+        springs={springs}
+      />
       <ul className="flex flex-col gap-2">
         {activities.map((activity) => {
           return (
