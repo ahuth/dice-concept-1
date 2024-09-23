@@ -1,5 +1,6 @@
 import {animated, useSpring} from '@react-spring/web';
 import {useState} from 'react';
+import {useDebouncedCallback} from 'use-debounce';
 import {
   useActions,
   useActivities,
@@ -28,6 +29,25 @@ export default function App() {
   const [springs, animateApi] = useSpring(() => ({
     from: {rotate: 0},
   }));
+
+  const doActivity = useDebouncedCallback(
+    (name: string) => {
+      animateApi.start({
+        from: {
+          rotate: 0,
+        },
+        to: {
+          rotate: 360,
+        },
+        onRest: () => {
+          setSelected(undefined);
+          actions.takeAction(name, selected ?? -1);
+        },
+      });
+    },
+    1000,
+    {leading: true, trailing: false},
+  );
 
   return (
     <div className="flex flex-col items-center gap-4 p-8">
@@ -68,20 +88,7 @@ export default function App() {
               activity={activity}
               key={activity.name}
               disabled={selected == undefined || activity.status !== 'todo'}
-              onClick={() => {
-                animateApi.start({
-                  from: {
-                    rotate: 0,
-                  },
-                  to: {
-                    rotate: 360,
-                  },
-                  onRest: () => {
-                    setSelected(undefined);
-                    actions.takeAction(activity.name, selected ?? -1);
-                  },
-                });
-              }}
+              onClick={() => doActivity(activity.name)}
             />
           );
         })}
