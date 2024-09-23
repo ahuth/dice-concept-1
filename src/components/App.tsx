@@ -1,22 +1,24 @@
-import {useSpring} from '@react-spring/web';
+import {animated, useSpring} from '@react-spring/web';
 import {useState} from 'react';
 import {
   useActions,
   useActivities,
   useDay,
+  useDice,
   useGraditude,
   useHydration,
   useSanity,
 } from '../store';
-import Activities from './Activities';
+import Activity from './Activity';
 import Button from './Button';
-import Dice from './Dice';
+import Die from './Die';
 import Meter from './Meter';
 
 export default function App() {
   const actions = useActions();
   const activities = useActivities();
   const day = useDay();
+  const dice = useDice();
   const gratitude = useGraditude();
   const hydration = useHydration();
   const sanity = useSanity();
@@ -43,31 +45,47 @@ export default function App() {
       <Meter name="Gratitude" value={gratitude} />
       <Meter name="Hydration" value={hydration} />
       <Meter name="Sanity" value={sanity} />
-      <Dice
-        onSelect={(i) => {
-          // Set or unset this die as selected.
-          setSelected((prev) => (prev === i ? undefined : i));
-        }}
-        selected={selected}
-        springs={springs}
-      />
-      <Activities
-        disabled={selected == undefined}
-        onDoActivity={(name) => {
-          animateApi.start({
-            from: {
-              rotate: 0,
-            },
-            to: {
-              rotate: 360,
-            },
-            onRest: () => {
-              setSelected(undefined);
-              actions.takeAction(name, selected ?? -1);
-            },
-          });
-        }}
-      />
+      <ul className="flex justify-center gap-2">
+        {dice.map((val, i) => {
+          return (
+            <animated.li key={i} style={i === selected ? springs : undefined}>
+              <Die
+                active={i === selected}
+                onClick={() =>
+                  // Set or unset this die as selected.
+                  setSelected((prev) => (prev === i ? undefined : i))
+                }
+                value={val}
+              />
+            </animated.li>
+          );
+        })}
+      </ul>
+      <ul className="flex flex-col gap-2">
+        {activities.map((activity) => {
+          return (
+            <Activity
+              activity={activity}
+              key={activity.name}
+              disabled={selected == undefined || activity.status !== 'todo'}
+              onClick={() => {
+                animateApi.start({
+                  from: {
+                    rotate: 0,
+                  },
+                  to: {
+                    rotate: 360,
+                  },
+                  onRest: () => {
+                    setSelected(undefined);
+                    actions.takeAction(activity.name, selected ?? -1);
+                  },
+                });
+              }}
+            />
+          );
+        })}
+      </ul>
       <Button
         disabled={activities.some((activity) => activity.status === 'todo')}
         onClick={actions.nextDay}
