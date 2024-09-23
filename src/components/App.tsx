@@ -8,7 +8,7 @@ import {
   useHydration,
   useSanity,
 } from '../store';
-import Activity from './Activity';
+import Activities from './Activities';
 import Button from './Button';
 import Dice from './Dice';
 import Meter from './Meter';
@@ -51,31 +51,23 @@ export default function App() {
         selected={selected}
         springs={springs}
       />
-      <ul className="flex flex-col gap-2">
-        {activities.map((activity) => {
-          return (
-            <Activity
-              activity={activity}
-              key={activity.name}
-              disabled={selected == undefined || activity.status !== 'todo'}
-              onClick={() => {
-                animateApi.start({
-                  from: {
-                    rotate: 0,
-                  },
-                  to: {
-                    rotate: 360,
-                  },
-                  onRest: () => {
-                    setSelected(undefined);
-                    actions.takeAction(activity.name, selected ?? -1);
-                  },
-                });
-              }}
-            />
-          );
-        })}
-      </ul>
+      <Activities
+        disabled={selected == undefined}
+        onDoActivity={(name) => {
+          animateApi.start({
+            from: {
+              rotate: 0,
+            },
+            to: {
+              rotate: 360,
+            },
+            onRest: () => {
+              setSelected(undefined);
+              actions.takeAction(name, selected ?? -1);
+            },
+          });
+        }}
+      />
       <Button
         disabled={activities.some((activity) => activity.status === 'todo')}
         onClick={actions.nextDay}
