@@ -15,8 +15,6 @@ import Die from './Die';
 import Meter from './Meter';
 
 export default function App() {
-  const [selected, setSelected] = useState<number>();
-
   const actions = useActions();
   const activities = useActivities();
   const day = useDay();
@@ -25,11 +23,13 @@ export default function App() {
   const hydration = useHydration();
   const sanity = useSanity();
 
-  const dayIsDone = activities.every((activity) => activity.status !== 'todo');
+  const [selected, setSelected] = useState<number>();
 
   const [springs, animateApi] = useSpring(() => ({
     from: {rotate: 0},
   }));
+
+  const dayIsDone = activities.every((activity) => activity.status !== 'todo');
 
   return (
     <div className="flex flex-col items-center gap-4 p-8">
