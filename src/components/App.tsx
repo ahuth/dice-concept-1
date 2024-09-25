@@ -1,6 +1,6 @@
 import {animated, useSpring} from '@react-spring/web';
 import {useState} from 'react';
-import {useDebouncedCallback} from 'use-debounce';
+import {useThrottledCallback} from 'use-debounce';
 import {
   useActions,
   useActivities,
@@ -30,24 +30,20 @@ export default function App() {
     from: {rotate: 0},
   }));
 
-  const doActivity = useDebouncedCallback(
-    (name: string) => {
-      animateApi.start({
-        from: {
-          rotate: 0,
-        },
-        to: {
-          rotate: 360,
-        },
-        onRest: () => {
-          setSelected(undefined);
-          actions.takeAction(name, selected ?? -1);
-        },
-      });
-    },
-    1000,
-    {leading: true, trailing: false},
-  );
+  const doActivity = useThrottledCallback((name: string) => {
+    animateApi.start({
+      from: {
+        rotate: 0,
+      },
+      to: {
+        rotate: 360,
+      },
+      onRest: () => {
+        setSelected(undefined);
+        actions.takeAction(name, selected ?? -1);
+      },
+    });
+  }, 1000);
 
   return (
     <div className="flex flex-col items-center gap-4 p-8">
